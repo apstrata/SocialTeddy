@@ -28,8 +28,8 @@ How to configure
 * Once the scripts are copied to your Apstrata application account, you need to modify the "social.fb.common" file:
   * Verify that the value of the "storeName" variable is set to the name of your Apstrata store ("DefaultStore" by default)
   * Set the value of the "defaultAccountKey" variable to the value of your Apstrata account key
-  * Change the value of the "appKey" variable to 535472373248192 (facebook social teddy app key)
-  * Change the value of the "secret" variable to 62b492d864dd667481336277125452f6 ((facebook social teddy app secret)
+  * Change the value of the "appKey" variable to "535472373248192" (social teddy facebook app key)
+  * Change the value of the "secret" variable to "62b492d864dd667481336277125452f6" (social teddy facebook app secret)
   * Make sure that the value of the "apstrataUrl" variable points to your Apstrata cluster endpoint
 
 * You then need to create a user in Apstrata that will be associated to Facebook credentials granting access to the
