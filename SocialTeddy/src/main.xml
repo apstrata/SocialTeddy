@@ -27,11 +27,11 @@
 		
 		<!-- To keep this example simple, we hardcode the authentication key of the Apstrata application -->
 		<!-- Replace the below with your Apstrata auth key -->
-		<field id="apstrataAuthKey" value="'O71307F690'" />
+		<field id="apstrataAuthKey" value="'O71357F890'" />
 		
 		<!-- To keep this example simple, we hardcode the FB OAuth token of the user in the application -->
 		<!-- Replace the below with a valid Facebook OAuth token --> 
-		<field id="usersFacebookToken" value="'CAAHnAmCYMMABAIRyzrOd8E0p9DN5t3Bf0ByC3ZAD3YHgPpYuZC5SME15tVDEdLZB23JXkAB9DNFQchTUhWhzZB2SH1uoiaUzHZCYrMGh75k2ri3Kc5tDqX67mxvZB7mdg32I4c7JBgqNFxtnTUSiorIdHEDHRWY7GB9r8FTzUHdhWlck1uSzFUUgkabDOXAGrogZBs49QUsodeS30bfKlZAP'"/>
+		<field id="usersFacebookToken" value="'CBAHnAmCYMMABAIRyzrOd8E0p9DN5t3Bf0ByC3ZAD3YHgPpYuZC5SME15tVDEdLZB23JXkAB9DNFQchTUhWhzZB2SH1uoiaUzHZCYrMGh75k2ri3Kc5tDqX67mxvZB7mdg32I4c7JBgqNFxtnTUSiorIdHEDHRWY7GB9r8FTzUHdhWlck1uSzFUUgkabDOXAGrogZBs49QUsodeS30bfKlZAP'"/>
         
         <method id="onLaunch" params="application">
             <![CDATA[
