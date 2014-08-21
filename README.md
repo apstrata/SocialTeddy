@@ -38,7 +38,7 @@ facebook version of the social teddy application (needed to post of the user's w
   * Sign it to the [Apstrata workbench](https://workbench.wot.apstrata.com)
   * Select the "social.api.facebookLogin" script and execute it by passing the following parameter "command" with value
   "getRequestToken"
-  * Copy the value of the "authorizationUrl" result field and paste it into a browser. You are redirected to a Facebook login page where you will be asked to enter your credentials and grant some permissions. Once you do this, you are redirected to the "social.api.facebookLogin" script, which will automatically add a new user to Apstrata, or, if the user already existed, added a Facebook access token he user's profile.
+  * Copy the value of the "authorizationUrl" result field and paste it into a browser. You are redirected to a Facebook login page where you will be asked to enter your credentials and grant some permissions. Once you do this, you are redirected to the "social.api.facebookLogin" script, which will automatically add a new user to Apstrata, or, if the user already existed, add a Facebook access token the user's profile.
 
 * Copy the Facebook access token (either from the user's profile in the Apstrata workbench or from the browser window)
 * Open the main.xml file of the SocialTeddy project in Kinoma Studio:
