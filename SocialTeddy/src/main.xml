@@ -75,7 +75,7 @@
             <![CDATA[
             
             	var behaviorInstance = application.behavior;
-            	var postUrl = "https://sandbox.apstrata.com/apsdb/rest/" + behaviorInstance.apstrataAuthKey + "/RunScript?apsws.time=1406288595309&apsws.responseType=json&apsdb.scriptName=social.api.facebookPost";
+            	var postUrl = "https://wot.apstrata.com/apsdb/rest/" + behaviorInstance.apstrataAuthKey + "/RunScript?apsws.time=1406288595309&apsws.responseType=json&apsdb.scriptName=social.api.facebookPost";
             	postUrl = postUrl + "&message=" + encodeURIComponent(message + " " + recipient);
             	postUrl = postUrl + "&accessToken=" + behaviorInstance.usersFacebookToken;
             	trace(postUrl + "\n");
