@@ -34,7 +34,7 @@ How to configure
 
 * You then need to create a user in Apstrata that will be associated to Facebook credentials granting access to the
 facebook version of the social teddy application (needed to post of the user's wall). This is done by signing in to Apstrata through Facebook. 
-** Note** This step is usually implemented in the application itself but we will do it manually for simpliciation:
+**Note** This step is usually implemented in the application itself but we will do it manually for simpliciation:
   * Sign it to the [Apstrata workbench](https://workbench.wot.apstrata.com)
   * Select the "social.api.facebookLogin" script and execute it by passing the following parameter "command" with value
   "getRequestToken"
