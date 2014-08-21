@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+	This is a very simple application to demonstrate Apstrata's social network capabilities.
+	The application simulates a teddy bear with sensors.
+	Sensors are - virtually - located in the bear's cheeks, belly and right hand.
+	When pressing (tap/click) on the cheeks, respectively, belly, the application will send
+	a request to Apstrata's Facebook APIs to post a message on the user's wall
+	(send a kiss, respectively a hug, to a given recipient)
+	By pressing on the right hand, the user can select the recipient of the message
+	(the current recipient is displayed on the screen) 
+-->
+<program xmlns="http://www.kinoma.com/kpr/1">
+	
+	<require path="themes/sample/theme" id="THEME"/>	
+	
+	<skin id="whiteSkin" color="white" />	
+	<skin id="blueSkin" color="blue" />
+	<skin id="teddySkin" color="white" aspect="fit"/>
+	<style id="teddyStyle" align="center,middle"/>
+	<style id="msgStyle" font="arial" color="blue"/>
+	
+	<behavior id="ApplicationBehavior">
+	
+		<field id="teddyPic"/>
+		<field id="recipient" value="'mom'" />
+		<field id="recipientLabel"/>
+		
+		<!-- To keep this example simple, we hardcode the authentication key of the Apstrata application -->
+		<!-- Replace the below with your Apstrata auth key -->
+		<field id="apstrataAuthKey" value="'O71307F690'" />
+		
+		<!-- To keep this example simple, we hardcode the FB OAuth token of the user in the application -->
+		<!-- Replace the below with a valid Facebook OAuth token --> 
+		<field id="usersFacebookToken" value="'CAAHnAmCYMMABAIRyzrOd8E0p9DN5t3Bf0ByC3ZAD3YHgPpYuZC5SME15tVDEdLZB23JXkAB9DNFQchTUhWhzZB2SH1uoiaUzHZCYrMGh75k2ri3Kc5tDqX67mxvZB7mdg32I4c7JBgqNFxtnTUSiorIdHEDHRWY7GB9r8FTzUHdhWlck1uSzFUUgkabDOXAGrogZBs49QUsodeS30bfKlZAP'"/>
+        
+        <method id="onLaunch" params="application">
+            <![CDATA[
+                
+                this.teddyPic = new TeddyPic();
+                this.recipientLabel = new CurrentRecipientLabel();
+                this.recipientLabel.string = this.recipient;            		
+            ]]>
+        </method>
+        <method id="onComplete" params="application, message, data">
+            <![CDATA[
+                var x = data;
+                trace(JSON.stringify(data));
+            ]]>
+        </method>
+        
+        <!-- Switch to the next available recipient when right arm is tapped -->
+    	<method id="handleSwitchRecipient">
+            <![CDATA[
+             
+                var possibleValues = ["mom", "dad"];
+                var currentRecipientIndex = possibleValues.indexOf(application.behavior.recipient);
+                var nextRecipientIndex = (currentRecipientIndex + 1) % 2;
+                application.behavior.recipient = possibleValues[nextRecipientIndex];
+                application.behavior.recipientLabel.string = application.behavior.recipient;                  
+            ]]>
+        </method>
+        <method id="handleKiss" params="">
+            <![CDATA[
+                application.behavior.postMessage("Sending a :* to ", application.behavior.recipient);
+            ]]>
+        </method>
+        <method id="handleHug" params="">
+            <![CDATA[
+                application.behavior.postMessage("Sending a big hug to ", application.behavior.recipient);
+            ]]>
+        </method>
+        
+        <!-- Send a request to Apstrata's social.api.facebookPost to post a message to the user's wall on Facebook -->
+        <method id="postMessage" params="message, recipient">
+            <![CDATA[
+            
+            	var behaviorInstance = application.behavior;
+            	var postUrl = "https://sandbox.apstrata.com/apsdb/rest/" + behaviorInstance.apstrataAuthKey + "/RunScript?apsws.time=1406288595309&apsws.responseType=json&apsdb.scriptName=social.api.facebookPost";
+            	postUrl = postUrl + "&message=" + encodeURIComponent(message + " " + recipient);
+            	postUrl = postUrl + "&accessToken=" + behaviorInstance.usersFacebookToken;
+            	trace(postUrl + "\n");
+            	var message = new Message(postUrl);
+                application.invoke(message, Message.JSON);
+            ]]>
+        </method>
+    </behavior>
+	
+	<picture id="TeddyPic" top="0" left="10" url="'./assets/teddy.png'" aspect="fit" style="teddyStyle" active="true">
+    	<behavior>
+    	
+    		<!-- Draw the screen when the teddy's picture has loaded -->	
+        	<method id="onLoaded" params="picture">
+                <![CDATA[
+                   	var coordinates = {
+                   	
+                   		"top":0,
+                   		"left":0,
+                   		"width": picture.width,
+                   		"height":picture.height
+                   	};
+                   	
+                   	var mainContainer = new MainContainer(coordinates);
+                   	mainContainer.add(application.behavior.teddyPic);
+                   	mainContainer.add(application.behavior.recipientLabel);
+                   	application.add(mainContainer);                   	
+                ]]>
+            </method>
+            
+            <!-- Detect the area that was touched then invoke the corresponding method -->
+        	<method id="onTouchBegan" params="content, id, x, y, ticks">
+                <![CDATA[
+                    
+                  	var area = this.locateTouchArea(x, y, content);
+                  	if (area) {
+                  		
+                  		var methodToCall = eval("application.behavior.handle" + area);
+                  		methodToCall();
+                  	}
+                ]]>
+            </method>
+            <method id="locateTouchArea" params="x, y, content">
+                <![CDATA[
+                   
+                    if (x >= content.x + 82 && x <= content.x + 170 && y >= content.y + 146 && y <= content.y +201) {
+                      	return "Hug"                    
+                    };
+                    
+                    if (x >= content.x + 84 && x <= content.x + 100 && y >= content.y + 69 && y <= content.y + 94) {
+                    	return "Kiss"	
+                    }
+                    
+                    if (x >= content.x + 175 && x <= content.x + 200 && y >= content.y + 91 && y <= content.y + 117) {
+                    	return "Kiss"	
+                    }
+                    
+                     if (x >= content.x + 26 && x <= content.x + 170 && y >= content.y + 144 && y <= content.y + 206) {
+                    	return "SwitchRecipient"	
+                    }
+                ]]>
+            </method>
+        </behavior>	
+    </picture>
+    <label id="CurrentRecipientLabel" top="50" left="0" style="msgStyle"/>
+    <container id="MainContainer" skin="whiteSkin">    	
+    </container>
+    <script>
+        <![CDATA[            
+             application.behavior = new ApplicationBehavior();
+        ]]>
+    </script>
+</program>
