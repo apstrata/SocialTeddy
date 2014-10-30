@@ -11,6 +11,8 @@ How to install
 
 * Import the SocialTeddy application as a Kinoma project in Kinoma Studio
 
+* Copy the [apstrataClientModule script for kinoma](https://github.com/apstrata/kinoma-sdk/blob/master/src/apstrataClientModule.js) into the /src folder 
+
 * Deploy some of the [Apstrata Facebook integration scripts](http://wiki.apstrata.com/pages/viewpageattachments.action?pageId=1213691&metadataLink=true) 
 that are downloadable form the Apstrata wiki, to your Apstrata application account (easiest way is to use the Apstrata workbench)
   * social.api.facebookLogin
